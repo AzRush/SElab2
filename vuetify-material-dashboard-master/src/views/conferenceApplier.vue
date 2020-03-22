@@ -61,29 +61,19 @@ If the acronym has no digit, you can always add the meeting number or the year a
             outlined
           ></v-select>
         </v-col>
-          <!--          暂时没有完成date range-->
-        <v-menu
-          v-model="menu"
-          :close-on-content-click="false"
-          :nudge-right="40"
-          transition="scale-transition"
-          offset-y
-          min-width="290px"
+        <v-row
+          justify="left"
         >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="date"
-              label="End date"
-              readonly
-              v-on="on"
-            ></v-text-field>
-          </template>
+          <!--          暂时没有完成date range-->
           <v-date-picker
             v-model="date"
             :allowed-dates="allowedDates"
-            @input="menu = false"
-          ></v-date-picker>
-        </v-menu>
+            class="mt-4"
+            min="2020-03-21"
+            max="2030-03-21"
+          >
+          </v-date-picker>
+        </v-row>
         <v-text-field
           v-model="meetingApplierForm.primaryArea"
           type="text"
@@ -145,7 +135,6 @@ If the acronym has no digit, you can always add the meeting number or the year a
     name: 'meetingApplier',
     data () {
       return {
-        date: new Date().toISOString().substr(0, 10),
         regions: ['a', 'b', 'c', 'd'],
         meetingApplierForm: {
           meetingName: '',
@@ -167,6 +156,16 @@ If the acronym has no digit, you can always add the meeting number or the year a
       }
     },
     methods: {
+      maxDate () {
+        var date = new Date()
+        console.log(date.getFullYear() + 10 + '-0' + date.getMonth() + '-' + date.getDay())
+        return date.getFullYear() + 10 + '-' + date.getMonth() + '-' + date.getDay()
+      },
+      minDate () {
+        var date = new Date()
+        console.log(date.getVarDate())
+        return date.getVarDate()
+      },
       allowedDates (val) {
         var date = new Date()
         var year = parseInt(val.split('-')[0], 10)
